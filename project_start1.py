@@ -1,24 +1,30 @@
-# class Calories(cal):
-# cal =
+class Person:
 
+    def __init__(self, kg, cm, my_age):
+        self.kg = kg
+        self.cm = cm
+        self.my_age = my_age
+        self.cal = None
 
-def weight(kg):
-    kg *= 9
-    return kg
+    def weight(self):
+        self.kg *= 9
+        return self.kg
 
+    def height(self):
+        self.cm *= 7
+        return self.cm
 
-def height(cm):
-    cm *= 7
-    return cm
+    def age(self):
+        self.my_age *= 6
 
+        if self.my_age >= 15:
+            self.my_age += 100
 
-def age(my_age):
-    my_age *= 6
+        return self.my_age
 
-    if my_age <= 15:
-        my_age += 6
-
-    return my_age
+    def calories(self):
+        self.cal = self.weight() + self.height() + self.age()
+        return self.cal
 
 
 def main():
@@ -26,10 +32,11 @@ def main():
     user_weight = (int(input("Please enter your weight:")))
     user_height = (int(input("Please enter your height:")))
     user_age = (int(input("Please enter your age:")))
+    user = Person(user_weight, user_height, user_age)
 
     print("----------------------------")
 
-    print("Maintain weight:", weight(user_weight) + height(user_height) + age(user_age))
+    print("Maintain weight:", user.calories())
     print("Calories/day")
 
 
