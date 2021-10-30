@@ -1,5 +1,5 @@
 def choice(user_choice):
-    synonyms_loss = ["loose", "weight loss", "loose weight", "cut"]
+    synonyms_loss = ["lose", "weight loss", "lose weight", "cut"]
     synonyms_gain = ["gain", "weight gain", "gain weight", "bulk"]
     synonyms_maintain = ["maintain", "stay the same", "keep", "maintain weight"]
 
@@ -15,4 +15,4 @@ def choice(user_choice):
         if user_choice in synonyms_maintain:
             user_choice = "Maintain weight"
             return user_choice
-        return "Invalid choice"
+    return f"{user_choice}"
