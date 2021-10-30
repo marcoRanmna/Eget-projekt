@@ -15,4 +15,4 @@ def choice(user_choice):
         if user_choice in synonyms_maintain:
             user_choice = "Maintain weight"
             return user_choice
-        return "Invalid choice"
+    return f"{user_choice}"
