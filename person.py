@@ -1,6 +1,7 @@
 from activity import activity
 from choice import choice
-from question_class import Questions
+from questions import Questions
+from reporter import Report
 
 
 class Person:
@@ -12,29 +13,60 @@ class Person:
         self.gender = data.user_gender
         self.weight_change = choice(data.user_goal)
         self.training_intensity = activity(data.user_training)
+        self.cal = 0
+
+    def generate_report(self):
+        easy_cal = self.calculate("easy")
+        normal_cal = self.calculate("normal")
+        extreme_cal = self.calculate("extreme")
+
+        return Report(easy_cal, normal_cal, extreme_cal).generate()
+
+    def generate_tips_bulk(self):
+        easy_cal = self.calculate("easy")
+        normal_cal = self.calculate("normal")
+        extreme_cal = self.calculate("extreme")
+
+        return Report(easy_cal, normal_cal, extreme_cal).tips_bulk()
+
+    def generate_suggestion(self):
+        easy_cal = self.calculate("easy")
+        normal_cal = self.calculate("normal")
+        extreme_cal = self.calculate("extreme")
+
+        return Report(easy_cal, normal_cal, extreme_cal).suggestion()
+
+    def generate_cut_tips(self):
+        easy_cal = self.calculate("easy")
+        normal_cal = self.calculate("normal")
+        extreme_cal = self.calculate("extreme")
+
+        return Report(easy_cal, normal_cal, extreme_cal).cut_tips()
+
+    def calculate(self, level):
         self.calories()
+        self.train()
+        self.levels(level)
+        return self.cal
 
     def weight(self):
-        self.kg *= 9
-        return self.kg
+        return self.kg * 9
 
     def height(self):
-        self.cm *= 7
-        return self.cm
+        return self.cm * 7
 
     def age(self):
-        self.my_age *= 6
-        if self.my_age >= 15:
-            self.my_age += 100
-        return self.my_age
+        temp_age = self.my_age * 6
+        if temp_age >= 15:
+            temp_age += 100
+        return temp_age
 
     def calories(self):
         self.cal = self.weight() + self.height() + self.age()
-        return self.cal
 
     def train(self):
         if self.training_intensity == "Little to no exercise":
-            self.calories()
+            self.little_to_no_exercise()
 
         elif self.training_intensity == "Light: exercise":
             self.light_exercise()
@@ -45,44 +77,64 @@ class Person:
         elif self.training_intensity == "Very Active: Intense exercise":
             self.very_active_exercise()
 
+    def levels(self, level_choice):
+        if level_choice == "easy":
+            self.easy()
+
+        elif level_choice == "normal":
+            self.normal()
+
+        elif level_choice == "extreme":
+            self.extreme()
+
+    def little_to_no_exercise(self):
+        if self.gender == "female":
+            self.cal -= 199
+
     def light_exercise(self):
         self.cal += 290
-
         if self.gender == 'male':
             self.cal += 229
 
         elif self.gender == "female":
             self.cal -= 229
-        else:
-            print("That's not an option")
-
-        if self.weight == "Weight gain":
-            self.cal += 250
-        else:
-            self.cal -= 250
 
     def moderate_exercise(self):
         self.cal += 439
 
         if self.gender == "male":
             self.cal += 244
-        else:
+        elif self.gender == "female":
             self.cal -= 244
-
-        if self.weight == "Weight gain":
-            self.cal += 500
-        else:
-            self.cal -= 500
 
     def very_active_exercise(self):
         self.cal += 869
 
         if self.gender == "male":
             self.cal += 286
-        else:
+        elif self.gender == "female":
             self.cal -= 286
 
-        if self.weight == "Weight gain":
+    def easy(self):
+        if self.weight_change == "Weight gain":
+            self.cal += 250
+            return self.weight_change
+        elif self.weight_change == "Weight loss":
+            self.cal -= 250
+            return self.weight_change
+
+    def normal(self):
+        if self.weight_change == "Weight gain":
+            self.cal += 500
+            return self.cal
+        elif self.weight_change == "Weight loss":
+            self.cal -= 500
+            return self.cal
+
+    def extreme(self):
+        if self.weight_change == "Weight gain":
             self.cal += 1000
-        else:
+            return self.cal
+        elif self.weight_change == "Weight loss":
             self.cal -= 1000
+            return self.cal

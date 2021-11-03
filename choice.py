@@ -1,5 +1,5 @@
 def choice(user_choice):
-    synonyms_loss = ["loose", "weight loss", "loose weight", "cut"]
+    synonyms_loss = ["lose", "weight loss", "lose weight", "cut"]
     synonyms_gain = ["gain", "weight gain", "gain weight", "bulk"]
     synonyms_maintain = ["maintain", "stay the same", "keep", "maintain weight"]
 

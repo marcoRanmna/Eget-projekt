@@ -1,4 +1,3 @@
-#  fix test1 class WeightLoss
 from person import Person
 from questions import Questions
 
@@ -10,12 +9,11 @@ def main():
     questions.about_training()
 
     user = Person(questions)
-    user.train()
 
-    print("----------------------------")
-
-    print(user.calories() - 100000)
-    print("Calories/day")
+    print(user.generate_report())
+    print(user.generate_suggestion())
+    print(user.generate_tips_bulk())
+    print(user.generate_cut_tips())
 
 
 if __name__ == "__main__":
